@@ -37,6 +37,13 @@ void CheckMterpAsmConstants();
 // TODO: Fix mterp and stubs and revert this workaround. http://b/30232671
 extern "C" size_t MterpShouldSwitchInterpreters();
 
+// Poison value for TestExportPC.  If we segfault with this value, it means that a mterp
+// handler for a recent opcode failed to export the Dalvik PC prior to a possible exit from
+// the mterp environment.
+constexpr uintptr_t kExportPCPoison = 0xdead00ff;
+// Set true to enable poison testing of ExportPC.  Uses Alt interpreter.
+constexpr bool kTestExportPC = false;
+
 }  // namespace interpreter
 }  // namespace art
 
